@@ -128,7 +128,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
           Identity identity = new AnonymousIdentity.Builder()
                   .withNameIdentifier(name).withEmailIdentifier(email).build();
           Zendesk.INSTANCE.setIdentity(identity);
-        }   
+        }
     }
 
     @ReactMethod
@@ -162,6 +162,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
         ChatConfiguration chatConfiguration = ChatConfiguration.builder()
                 .withAgentAvailabilityEnabled(true)
                 .withOfflineFormEnabled(true)
+                .withPreChatFormEnabled(options.getMap("chatOptions").getBoolean("showPreChatForm"))
                 .build();
 
         Activity activity = getCurrentActivity();
@@ -176,7 +177,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
                     .withEngines(AnswerBotEngine.engine(), ChatEngine.engine(), SupportEngine.engine())
                     .show(activity, chatConfiguration);
         }
-      
+
     }
 
     @ReactMethod
