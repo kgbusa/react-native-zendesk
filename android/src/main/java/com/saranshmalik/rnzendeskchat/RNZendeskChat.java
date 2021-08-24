@@ -20,6 +20,8 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 import zendesk.chat.Chat;
@@ -96,6 +98,13 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
         if (options.hasKey("department"))
             chatProvider.setDepartment(options.getString("department"), null);
 
+        if (options.hasKey("tags")) {
+          List<String> tags = new ArrayList<>();
+          for (Object o : options.getArray("tags").toArrayList()) {
+            tags.add(o.toString());
+          }
+          profileProvider.addVisitorTags(tags, null);
+        }
     }
 
     @ReactMethod
