@@ -110,6 +110,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
     @ReactMethod
     public void init(ReadableMap options) {
         String appId = options.getString("appId");
+        String chatAppId = options.getString("chatAppId");
         String clientId = options.getString("clientId");
         String url = options.getString("url");
         String key = options.getString("key");
@@ -117,7 +118,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
         Zendesk.INSTANCE.init(context, url, appId, clientId);
         Support.INSTANCE.init(Zendesk.INSTANCE);
         AnswerBot.INSTANCE.init(Zendesk.INSTANCE, Support.INSTANCE);
-        Chat.INSTANCE.init(context, key);
+        Chat.INSTANCE.init(context, key, chatAppId);
     }
 
     @ReactMethod

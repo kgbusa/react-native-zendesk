@@ -76,7 +76,7 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
       zendeskUrl: options[@"url"]];
   [ZDKSupport initializeWithZendesk: [ZDKZendesk instance]];
   [ZDKAnswerBot initializeWithZendesk:[ZDKZendesk instance] support:[ZDKSupport instance]];
-  [ZDKChat initializeWithAccountKey:options[@"key"] queue:dispatch_get_main_queue()];
+  [ZDKChat initializeWithAccountKey:options[@"key"] appId:options[@"chatAppId"] queue:dispatch_get_main_queue()];
 }
 
 RCT_EXPORT_METHOD(initChat:(NSString *)key) {
@@ -242,7 +242,7 @@ RCT_EXPORT_METHOD(setNotificationToken:(NSData *)deviceToken) {
 		NSArray *engines = @[
         (id <ZDKEngine>) [ZDKAnswerBotEngine engineAndReturnError:&error],
         (id <ZDKEngine>) [ZDKChatEngine engineAndReturnError:&error],
-        (id <ZDKEngine>) [ZDKSupportEngine engineAndReturnError:&error], 
+        (id <ZDKEngine>) [ZDKSupportEngine engineAndReturnError:&error],
       ];
 
 		ZDKMessagingConfiguration *messagingConfiguration = [self messagingConfigurationFromConfig: options[@"messagingOptions"]];
