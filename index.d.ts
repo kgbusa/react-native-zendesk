@@ -8,40 +8,40 @@ declare module 'react-native-zendesk-v2' {
 
  /**
   * To initialize the Zendesk SDK with all capabilities
-  * @param initializationOptins 
+  * @param initializationOptins
   */
   export function init(initializationOptins: InitOptions): void;
 
   /**
    * To initialize the Chat SDK only, to be used only if you just want Chat SDK
-   * @param accountKey 
+   * @param accountKey
    */
   export function initChat(accountKey: string): void;
 
   /**
    * Set primary color of chat on iOS
-   * @param color 
+   * @param color
    */
   export function setPrimaryColor(color: string): void;
 
   /**
    * To show help center from Zendesk Support SDK, can also have chat feature
-   * @param chatOptions 
+   * @param chatOptions
    */
   export function showHelpCenter(chatOptions: HelpCenterOptions): void;
 
   /**
    * Base function to set visitor info in Zendesk
-   * @param visitorInfo 
+   * @param visitorInfo
    */
   export function setVisitorInfo(visitorInfo: UserInfo): void;
 
   /**
    * Function to register your notification token with Zendesk, to receive notifications on device
-   * @param token 
+   * @param token
    */
   export function setNotificationToken(token: string): void;
-  
+
   interface ChatOptions extends UserInfo {
     /** Chat Department, optional */
     department?: string
@@ -49,7 +49,7 @@ declare module 'react-native-zendesk-v2' {
     tags?: Array<string>
     /**
      * Default chat options to configure
-     * Read more about them here: 
+     * Read more about them here:
      * https://developer.zendesk.com/embeddables/docs/chat-sdk-v-2-for-ios/customize_the_look#customizing-the-chat-experience
      */
     chatOptions?: {
@@ -115,6 +115,10 @@ declare module 'react-native-zendesk-v2' {
     * app id of your Zendesk account
     */
     appId: string,
+    /**
+    * chat app id used for push notifications
+    */
+    chatAppId: string,
     /** Client id of your Zendesk account */
     clientId: string,
     /**
