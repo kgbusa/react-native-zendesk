@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -30,6 +31,7 @@ import zendesk.chat.ChatEngine;
 import zendesk.chat.ChatProvider;
 import zendesk.chat.ChatSessionStatus;
 import zendesk.chat.ChatState;
+import zendesk.chat.CompletionCallback;
 import zendesk.chat.ObservationScope;
 import zendesk.chat.Observer;
 import zendesk.chat.PreChatFormFieldStatus;
@@ -139,6 +141,16 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
                   .withNameIdentifier(name).withEmailIdentifier(email).build();
           Zendesk.INSTANCE.setIdentity(identity);
         }
+    }
+
+    @ReactMethod
+    public void resetUserIdentity(final Promise promise) {
+        Chat.INSTANCE.resetIdentity(new CompletionCallback<Void>() {
+            @Override
+            public void onCompleted(Void result) {
+                promise.resolve(null);
+            }
+        });
     }
 
     @ReactMethod
