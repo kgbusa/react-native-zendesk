@@ -70,6 +70,13 @@ RCT_EXPORT_METHOD(setUserIdentity: (NSDictionary *)user) {
   }
 }
 
+RCT_EXPORT_METHOD(resetUserIdentity:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    [ZDKChat.instance resetIdentity:^{
+        resolve(nil);
+    }];
+}
+
 RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
   [ZDKZendesk initializeWithAppId:options[@"appId"]
       clientId: options[@"clientId"]
