@@ -12,11 +12,20 @@ declare module 'react-native-zendesk-v2' {
   */
   export function init(initializationOptins: InitOptions): void;
 
-  /**
-   * To initialize the Chat SDK only, to be used only if you just want Chat SDK
-   * @param accountKey
-   */
+ /**
+  * To initialize the Chat SDK only, to be used only if you just want Chat SDK
+  * @param accountKey
+  */
   export function initChat(accountKey: string): void;
+
+  // function to set the user identity required but the support sdk
+  export function setUserIdentity(
+    identity: JwtIdentity | AnonymousIdentity,
+  ): void;
+
+  // function to reset the visitor details to a clean slate allowing a new visitor to chat.
+  // Any ongoing chat will be ended, and locally stored information about the visitor will be cleared
+  export function resetUserIdentity(): Promise<void>;
 
   /**
    * Set primary color of chat on iOS
@@ -136,4 +145,14 @@ declare module 'react-native-zendesk-v2' {
     phone?: number
   }
 
+  interface JwtIdentity {
+    token: string;
+  }
+
+  interface AnonymousIdentity {
+    // user's name
+    name: string;
+    // user's email
+    email: string;
+  }
 }
