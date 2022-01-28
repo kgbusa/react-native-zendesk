@@ -94,9 +94,10 @@ RCT_EXPORT_METHOD(setPrimaryColor:(NSString *)color) {
   [ZDKCommonTheme currentTheme].primaryColor = [self colorFromHexString:color];
 }
 
-RCT_EXPORT_METHOD(setNotificationToken:(NSData *)deviceToken) {
+RCT_EXPORT_METHOD(setNotificationToken:(NSString *)token) {
   dispatch_sync(dispatch_get_main_queue(), ^{
-    [self registerForNotifications:deviceToken];
+      ZDKPushNotificationsProvider *pushProvider = ZDKChat.instance.providers.pushNotificationsProvider;
+      [pushProvider registerPushTokenString:token];
   });
 }
 
@@ -289,10 +290,6 @@ RCT_EXPORT_METHOD(setNotificationToken:(NSData *)deviceToken) {
         topController = topController.presentedViewController;
     }
     [topController dismissViewControllerAnimated:TRUE completion:NULL];
-}
-
-- (void) registerForNotifications:(NSData *)deviceToken {
-   [ZDKChat registerPushToken:deviceToken];
 }
 
 @end
