@@ -177,9 +177,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
     @ReactMethod
     public void startChat(ReadableMap options) {
         Providers providers = Chat.INSTANCE.providers();
-        setUserIdentity(options);
         setVisitorInfo(options);
-        setUserIdentity(options);
         String botName = options.getString("botName");
         ChatConfiguration chatConfiguration = ChatConfiguration.builder()
                 .withAgentAvailabilityEnabled(true)
