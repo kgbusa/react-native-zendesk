@@ -51,6 +51,7 @@ import zendesk.support.requestlist.RequestListActivity;
 import zendesk.answerbot.AnswerBot;
 import zendesk.answerbot.AnswerBotEngine;
 import zendesk.support.SupportEngine;
+import com.zendesk.logger.Logger;
 
 public class RNZendeskChat extends ReactContextBaseJavaModule {
 
@@ -206,5 +207,25 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
         if (pushProvider != null) {
             pushProvider.registerPushToken(token);
         }
+    }
+
+    @ReactMethod
+    public void setLogging(Boolean enableLogging) {
+      Logger.setLoggable(enableLogging);
+    }
+
+    @ReactMethod
+    public void setChatIdentity(String token) {
+        JwtAuthenticator jwtAuthenticator = new JwtAuthenticator() {
+            @Override
+            public void getToken(JwtCompletion jwtCompletion) {
+                // Fetch or generate the JWT token at this point
+                // OnSuccess
+                jwtCompletion.onTokenLoaded(token);
+                //OnError
+                //jwtCompletion.onError();
+            }
+        };
+        Chat.INSTANCE.setIdentity(jwtAuthenticator);
     }
 }

@@ -10,6 +10,7 @@
 #import <SupportProvidersSDK/SupportProvidersSDK.h>
 #import <ZendeskCoreSDK/ZendeskCoreSDK.h>
 #import <React/RCTConvert.h>
+#import "ZDKJWTAuth.h"
 
 @implementation RCTConvert (ZDKChatFormFieldStatus)
 
@@ -99,6 +100,16 @@ RCT_EXPORT_METHOD(setNotificationToken:(NSString *)token) {
       ZDKPushNotificationsProvider *pushProvider = ZDKChat.instance.providers.pushNotificationsProvider;
       [pushProvider registerPushTokenString:token];
   });
+}
+
+RCT_EXPORT_METHOD(setLogging:(BOOL *)enableLogging) {
+    [ZDKCoreLogger setEnabled: enableLogging];
+    [ZDKChatLogger setIsEnabled: enableLogging];
+}
+
+RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
+    ZDKJWTAuth *authenticator = [ZDKJWTAuth init:token];
+    [ZDKChat.instance setIdentityWithAuthenticator:authenticator];
 }
 
 - (ZDKChatAPIConfiguration*)applyVisitorInfo:(NSDictionary*)options visitorConfig:(ZDKChatAPIConfiguration*)config {
