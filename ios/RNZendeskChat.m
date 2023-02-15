@@ -108,7 +108,7 @@ RCT_EXPORT_METHOD(setLogging:(BOOL *)enableLogging) {
 }
 
 RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
-    ZDKJWTAuth *authenticator = [ZDKJWTAuth init:token];
+    ZDKJWTAuth *authenticator = [[ZDKJWTAuth alloc]init:token];
     [ZDKChat.instance setIdentityWithAuthenticator:authenticator];
 }
 
