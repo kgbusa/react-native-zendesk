@@ -102,13 +102,13 @@ RCT_EXPORT_METHOD(setNotificationToken:(NSString *)token) {
   });
 }
 
-RCT_EXPORT_METHOD(setLogging:(BOOL *)enableLogging) {
+RCT_EXPORT_METHOD(setLogging:(nonnull NSNumber *)enableLogging) {
     [ZDKCoreLogger setEnabled: enableLogging];
     [ZDKChatLogger setIsEnabled: enableLogging];
 }
 
 RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
-    ZDKJWTAuth *authenticator = [[ZDKJWTAuth alloc]init:token];
+    ZDKJWTAuth *authenticator = [[ZDKJWTAuth alloc] init:token];
     [ZDKChat.instance setIdentityWithAuthenticator:authenticator];
 }
 
