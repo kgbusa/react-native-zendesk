@@ -19,6 +19,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.zendesk.logger.Logger;
 
 import java.lang.String;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import zendesk.chat.ChatProvider;
 import zendesk.chat.ChatSessionStatus;
 import zendesk.chat.ChatState;
 import zendesk.chat.CompletionCallback;
+import zendesk.chat.JwtAuthenticator;
 import zendesk.chat.ObservationScope;
 import zendesk.chat.Observer;
 import zendesk.chat.PreChatFormFieldStatus;
@@ -51,7 +53,6 @@ import zendesk.support.requestlist.RequestListActivity;
 import zendesk.answerbot.AnswerBot;
 import zendesk.answerbot.AnswerBotEngine;
 import zendesk.support.SupportEngine;
-import com.zendesk.logger.Logger;
 
 public class RNZendeskChat extends ReactContextBaseJavaModule {
 
