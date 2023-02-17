@@ -110,7 +110,7 @@ RCT_EXPORT_METHOD(setLogging:(nonnull NSNumber *)enableLogging) {
 
 RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
     _authenticator = [[ZDKJWTAuth alloc] initWithToken:token];
-    [ZDKChat.instance setIdentityWithAuthenticator:authenticator];
+    [ZDKChat.instance setIdentityWithAuthenticator:_authenticator];
 }
 
 - (ZDKChatAPIConfiguration*)applyVisitorInfo:(NSDictionary*)options visitorConfig:(ZDKChatAPIConfiguration*)config {
