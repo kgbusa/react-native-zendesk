@@ -114,7 +114,7 @@ RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
 
 - (ZDKChatAPIConfiguration*)applyVisitorInfo:(NSDictionary*)options visitorConfig:(ZDKChatAPIConfiguration*)config {
 	if (options[@"department"]) {
-		config.department = options[@"department"];
+		config.departmentName = options[@"department"];
 	}
 	if (options[@"tags"]) {
 		config.tags = options[@"tags"];
