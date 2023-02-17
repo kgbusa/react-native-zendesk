@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString *token;
 
-- (instancetype)init:(NSString *)token;
+- (instancetype)initWithToken:(NSString *)token;
 
 @end
 

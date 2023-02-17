@@ -29,6 +29,7 @@ RCT_ENUM_CONVERTER(ZDKFormFieldStatus,
 
 RCT_EXPORT_MODULE()
 ZDKChatAPIConfiguration *_visitorAPIConfig;
+ZDKJWTAuth *_authenticator;
 
 
 #define RNZDKConfigHashErrorLog(options, what)\
@@ -108,7 +109,7 @@ RCT_EXPORT_METHOD(setLogging:(nonnull NSNumber *)enableLogging) {
 }
 
 RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
-    ZDKJWTAuth *authenticator = [[ZDKJWTAuth alloc] init:token];
+    _authenticator = [[ZDKJWTAuth alloc] initWithToken:token];
     [ZDKChat.instance setIdentityWithAuthenticator:authenticator];
 }
 

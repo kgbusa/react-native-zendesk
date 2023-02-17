@@ -6,7 +6,7 @@
     completion(self.token, NULL);
 }
 
--(instancetype)init:(NSString *)token {
+-(instancetype)initWithToken:(NSString *)token {
     self = [super init];
     if (self) {
         _token = token;
