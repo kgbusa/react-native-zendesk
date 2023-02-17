@@ -220,11 +220,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
         JwtAuthenticator jwtAuthenticator = new JwtAuthenticator() {
             @Override
             public void getToken(JwtCompletion jwtCompletion) {
-                // Fetch or generate the JWT token at this point
-                // OnSuccess
                 jwtCompletion.onTokenLoaded(token);
-                //OnError
-                //jwtCompletion.onError();
             }
         };
         Chat.INSTANCE.setIdentity(jwtAuthenticator);
