@@ -80,6 +80,14 @@ Step 2. Set user identifier
 
 Step 3. Show the UI based on what SDK you want to use
 
+### Debugging
+
+To enable debug logs, use the following method:
+
+```javascript
+RNZendeskChat.setLogging(true);
+```
+
 ### Chat SDK
 
 \*\* To use chat sdk without answer bot, please add `chatOnly: true` in this method
@@ -130,6 +138,14 @@ await RNZendeskChat.resetUserIdentity();
 ```
 
 Any ongoing chat will be ended, and locally stored information about the visitor will be cleared.
+
+### Set Chat Identity
+
+To authenticate a user with the Chat SDK, you first need to ensure you have created your Chat JWT Authentication endpoint. See https://support.zendesk.com/hc/en-us/articles/4408836328346#topic_mgm_vpy_4fb for more details. Then you can call your JWT endpoint which will return a JWT Token which you will use to set the chat identity:
+
+```
+RNZendeskChat.setChatIdentity(<JWT TOKEN>);
+```
 
 ### Customising Looks
 

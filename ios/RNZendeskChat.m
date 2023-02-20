@@ -10,6 +10,7 @@
 #import <SupportProvidersSDK/SupportProvidersSDK.h>
 #import <ZendeskCoreSDK/ZendeskCoreSDK.h>
 #import <React/RCTConvert.h>
+#import "ZDKJWTAuth.h"
 
 @implementation RCTConvert (ZDKChatFormFieldStatus)
 
@@ -28,6 +29,7 @@ RCT_ENUM_CONVERTER(ZDKFormFieldStatus,
 
 RCT_EXPORT_MODULE()
 ZDKChatAPIConfiguration *_visitorAPIConfig;
+ZDKJWTAuth *_authenticator;
 
 
 #define RNZDKConfigHashErrorLog(options, what)\
@@ -101,9 +103,19 @@ RCT_EXPORT_METHOD(setNotificationToken:(NSString *)token) {
   });
 }
 
+RCT_EXPORT_METHOD(setLogging:(nonnull NSNumber *)enableLogging) {
+    [ZDKCoreLogger setEnabled: enableLogging];
+    [ZDKChatLogger setIsEnabled: enableLogging];
+}
+
+RCT_EXPORT_METHOD(setChatIdentity:(NSString *)token) {
+    _authenticator = [[ZDKJWTAuth alloc] initWithToken:token];
+    [ZDKChat.instance setIdentityWithAuthenticator:_authenticator];
+}
+
 - (ZDKChatAPIConfiguration*)applyVisitorInfo:(NSDictionary*)options visitorConfig:(ZDKChatAPIConfiguration*)config {
 	if (options[@"department"]) {
-		config.department = options[@"department"];
+		config.departmentName = options[@"department"];
 	}
 	if (options[@"tags"]) {
 		config.tags = options[@"tags"];

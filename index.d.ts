@@ -18,7 +18,7 @@ declare module 'react-native-zendesk-v2' {
   */
   export function initChat(accountKey: string): void;
 
-  // function to set the user identity required but the support sdk
+  // Function to set the user identity required by the Support SDK
   export function setUserIdentity(
     identity: JwtIdentity | AnonymousIdentity,
   ): void;
@@ -50,6 +50,18 @@ declare module 'react-native-zendesk-v2' {
    * @param token
    */
   export function setNotificationToken(token: string): void;
+
+  /**
+   * Enable/disable logging
+   * @param enableLogging
+   */
+  export function setLogging(enableLogging: boolean): void;
+
+  /**
+   * Function to set the Chat SDK identity for authenticating users
+   * @param token
+   */
+  export function setChatIdentity(token: string): void;
 
   interface ChatOptions extends UserInfo {
     /** Chat Department, optional */

@@ -19,6 +19,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.zendesk.logger.Logger;
 
 import java.lang.String;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import zendesk.chat.ChatProvider;
 import zendesk.chat.ChatSessionStatus;
 import zendesk.chat.ChatState;
 import zendesk.chat.CompletionCallback;
+import zendesk.chat.JwtAuthenticator;
 import zendesk.chat.ObservationScope;
 import zendesk.chat.Observer;
 import zendesk.chat.PreChatFormFieldStatus;
@@ -177,9 +179,7 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
     @ReactMethod
     public void startChat(ReadableMap options) {
         Providers providers = Chat.INSTANCE.providers();
-        setUserIdentity(options);
         setVisitorInfo(options);
-        setUserIdentity(options);
         String botName = options.getString("botName");
         ChatConfiguration chatConfiguration = ChatConfiguration.builder()
                 .withAgentAvailabilityEnabled(true)
@@ -208,5 +208,21 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
         if (pushProvider != null) {
             pushProvider.registerPushToken(token);
         }
+    }
+
+    @ReactMethod
+    public void setLogging(Boolean enableLogging) {
+      Logger.setLoggable(enableLogging);
+    }
+
+    @ReactMethod
+    public void setChatIdentity(String token) {
+        JwtAuthenticator jwtAuthenticator = new JwtAuthenticator() {
+            @Override
+            public void getToken(JwtCompletion jwtCompletion) {
+                jwtCompletion.onTokenLoaded(token);
+            }
+        };
+        Chat.INSTANCE.setIdentity(jwtAuthenticator);
     }
 }
