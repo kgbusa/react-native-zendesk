@@ -57,6 +57,7 @@ import zendesk.support.SupportEngine;
 public class RNZendeskChat extends ReactContextBaseJavaModule {
 
   private ReactContext appContext;
+  private JwtAuthenticator jwtAuthenticator;
   private static final String TAG = "ZendeskChat";
 
   public RNZendeskChat(ReactApplicationContext reactContext) {
@@ -216,13 +217,23 @@ public class RNZendeskChat extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setChatIdentity(String token) {
-        JwtAuthenticator jwtAuthenticator = new JwtAuthenticator() {
-            @Override
-            public void getToken(JwtCompletion jwtCompletion) {
-                jwtCompletion.onTokenLoaded(token);
-            }
-        };
-        Chat.INSTANCE.setIdentity(jwtAuthenticator);
+    public void setChatIdentity(String token, Promise promise) {
+        try {
+            jwtAuthenticator = new JwtAuthenticator() {
+                @Override
+                public void getToken(JwtCompletion jwtCompletion) {
+                    jwtCompletion.onTokenLoaded(token);
+                }
+            };
+            Chat.INSTANCE.setIdentity(jwtAuthenticator, new CompletionCallback<Void>() {
+                @Override
+                public void onCompleted(Void result) {
+                    promise.resolve(null);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject("RNZendeskChat.setChatIdentity Error", e);
+            Log.e(TAG, "setChatIdentity Error", e);
+        }
     }
 }

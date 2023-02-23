@@ -61,7 +61,7 @@ declare module 'react-native-zendesk-v2' {
    * Function to set the Chat SDK identity for authenticating users
    * @param token
    */
-  export function setChatIdentity(token: string): void;
+  export function setChatIdentity(token: string): Promise<void>;
 
   interface ChatOptions extends UserInfo {
     /** Chat Department, optional */
