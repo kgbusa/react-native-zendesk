@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.source_files   = 'ios/*.{h,m}'
 
   s.dependency 'React'
-  s.dependency 'ZendeskAnswerBotSDK'
-  s.dependency 'ZendeskSupportSDK'
-  s.dependency 'ZendeskChatSDK'
+  s.dependency 'ZendeskAnswerBotSDK', '~> 3.0'
+  s.dependency 'ZendeskSupportSDK', '~> 6.0'
+  s.dependency 'ZendeskChatSDK', '~> 3.0'
 end
